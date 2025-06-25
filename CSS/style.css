@@ -146,7 +146,7 @@ header.scrolled nav a {
 
 .socials {
     position: fixed;
-    left: 1rem;
+    left: 0.8rem;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
@@ -165,11 +165,6 @@ header.scrolled nav a {
 
 .socials a:hover img {
     transform: scale(1.2);
-}
-
-/* Media queries remain the same */
-@media (max-width: 1024px) {
-    /* ... */
 }
 
 
@@ -1190,4 +1185,132 @@ footer p a {
 footer p a:hover {
     text-decoration: underline;
     color: #fd5d00;
+}
+
+@media (max-width: 768px) {
+    /* Header becomes column */
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 20px;
+    }
+
+    .logo {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .nav-container {
+        width: 100%;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    nav a {
+        font-size: 16px;
+        padding: 10px 0;
+        margin: 0;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .resume-btn {
+        margin-left: 0;
+    }
+
+    /* Hero section stacks vertically */
+    .hero {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .hero-image-container {
+        margin-bottom: 0;
+    }
+
+    .hero-image {
+        width: 140px;
+        height: auto;
+    }
+
+    .hero-text {
+        padding: 0 22px;
+    }
+
+    .hero-text h1 {
+        font-size: 28px;
+        margin: 10px 0;
+        
+    }
+
+    .hero-text .description {
+        font-size: 16px;
+    }
+
+    .intro {
+        font-size: 14px;
+    }
+
+    .socials {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 10px 0;
+        gap: 10px;
+    }
+
+    .socials img {
+        width: 24px;
+    }
+}
+
+/* Hamburger Icon */
+.hamburger {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--accent-color);
+}
+
+/* Responsive Menu Hidden by Default */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-container {
+        display: none;
+        width: 100%;
+    }
+
+    .nav-container.active {
+        display: block;
+    }
+
+    nav {
+        flex-direction: column;
+        gap: 10px;
+        padding-top: 10px;
+    }
+
+    nav a {
+        font-size: 16px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        display: block;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

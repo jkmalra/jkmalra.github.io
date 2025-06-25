@@ -34,18 +34,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 body: JSON.stringify(formObject),
             })
-            .then(response => {
-                if (response.ok) {
-                    showSuccessMessage();
-                    contactForm.reset();
-                } else {
-                    throw new Error('Failed to send form. Please try again later.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showErrorMessage();
-            });
+                .then(response => {
+                    if (response.ok) {
+                        showSuccessMessage();
+                        contactForm.reset();
+                    } else {
+                        throw new Error('Failed to send form. Please try again later.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showErrorMessage();
+                });
         });
     }
 
@@ -60,4 +60,11 @@ document.addEventListener('DOMContentLoaded', function () {
     function showErrorMessage() {
         alert("Oops! Something went wrong. Please try again later.");
     }
+});
+
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-menu');
+
+hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
 });
