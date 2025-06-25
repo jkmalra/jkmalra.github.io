@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', checkScroll, { passive: true });
     checkScroll();
 
-    // Contact form submission handling
+    // ---------Contact form submission handling-----------
     const contactForm = document.getElementById('hire-contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function (e) {
@@ -24,7 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const formData = new FormData(contactForm);
             const formObject = Object.fromEntries(formData.entries());
 
-            // Send to backend API
+            console.log("Sending form data to backend:", formObject);
+
+            //  ------API request-------
             fetch('https://portfolio-api-edp8.onrender.com/api/contact', {
                 method: 'POST',
                 headers: {
@@ -32,18 +34,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 body: JSON.stringify(formObject),
             })
-                .then(response => {
-                    if (response.ok) {
-                        showSuccessMessage();
-                        contactForm.reset();
-                    } else {
-                        throw new Error('Failed to send form. Please try again later.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showErrorMessage();
-                });
+            .then(response => {
+                if (response.ok) {
+                    showSuccessMessage();
+                    contactForm.reset();
+                } else {
+                    throw new Error('Failed to send form. Please try again later.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showErrorMessage();
+            });
         });
     }
 
