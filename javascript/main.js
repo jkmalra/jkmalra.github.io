@@ -1,25 +1,19 @@
-// main.js - Enhanced version
+// main.js - Production version with live backend integration
 document.addEventListener('DOMContentLoaded', function () {
     // Header scroll effect
     const header = document.querySelector('header');
-    const scrollThreshold = 50; // Reduced threshold for more noticeable effect
+    const scrollThreshold = 50;
 
-    // Add initial check
-    checkScroll();
-
-    // Optimized scroll handler
     function checkScroll() {
         if (window.scrollY > scrollThreshold) {
             header.classList.add('scrolled');
-            console.log('Navbar scrolled state activated');
         } else {
             header.classList.remove('scrolled');
-            console.log('Navbar normal state');
         }
     }
 
-    // Use passive listener for better performance
     window.addEventListener('scroll', checkScroll, { passive: true });
+    checkScroll();
 
     // Contact form submission handling
     const contactForm = document.getElementById('hire-contact-form');
@@ -27,61 +21,41 @@ document.addEventListener('DOMContentLoaded', function () {
         contactForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Get form data
             const formData = new FormData(contactForm);
             const formObject = Object.fromEntries(formData.entries());
 
-            console.log('Form submitted with data:', formObject);
-
-            // Here you would typically send the data to your server
-            // For now, we'll simulate a successful submission
-            simulateFormSubmission();
+            // Send to backend API
+            fetch('https://portfolio-api-edp8.onrender.com/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formObject),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        showSuccessMessage();
+                        contactForm.reset();
+                    } else {
+                        throw new Error('Failed to send form. Please try again later.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showErrorMessage();
+                });
         });
     }
 
-    function simulateFormSubmission() {
+    function showSuccessMessage() {
         const successMessage = document.getElementById('form-success');
-
-        // Show success message
         successMessage.style.display = 'block';
-
-        // Reset form
-        contactForm.reset();
-
-        // Hide success message after 5 seconds
-        setTimeout(function () {
+        setTimeout(() => {
             successMessage.style.display = 'none';
         }, 5000);
-
-        console.log('Form submission simulated successfully');
     }
 
-    // For production, you would replace simulateFormSubmission() with actual AJAX call:
-    /*
-    function submitFormData(formData) {
-        fetch('/api/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            showSuccessMessage();
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            showErrorMessage();
-        });
+    function showErrorMessage() {
+        alert("Oops! Something went wrong. Please try again later.");
     }
-    */
-
-    /*To implement actual form submission in production, you would:
-        Uncomment the submitFormData function
-        Replace the endpoint URL with your actual backend endpoint
-        Replace simulateFormSubmission() with submitFormData(formObject)
-        Add proper error handling and user feedback
-     */
 });
